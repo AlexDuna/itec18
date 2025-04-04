@@ -4,7 +4,7 @@ import {useGLTF, Stage, PresentationControls} from "@react-three/drei";
 
 function Model(props)
 {
-  const {scene} = useGLTF("/dacia.glb");
+  const {scene} = useGLTF("/book.glb");
   return <primitive object={scene} {...props}/>
 }
 function App() {
@@ -30,7 +30,6 @@ function App() {
       <pre>{JSON.stringify(data, null, 2)}</pre>
       {/* Afișează scena Three.js */}
       <Canvas dpr={[1,2]} shadows camera={{ fov: 60 }} style={{ position: "absolute", top: 0, left: 0, height: "100%", width: "100%" }}>
-      <color attach="background" args={["#101010"]} />
         <PresentationControls speed={1.5} global zoom={0.5} polar={[-0.01, Math.PI / 4]}>
           <Stage environment={"sunset"}>
             <Model scale={1.0} />
