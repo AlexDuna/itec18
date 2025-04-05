@@ -37,17 +37,9 @@ const Page = () => {
     console.log(e.defaultPrevented);
   }
   const login = (u, p) => {
-    fetch("https://onlinedi.vision:1313/api/try_login", {
-      method: "POST",
-      body: JSON.stringify({
-        username: u,
-        password: p,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        'Access-Control-Allow-Origin':'*',
-      }
-    }).then(
+    const payload = { username: u, password: p };
+    axios.post('https://onlinedi.vision:1313/api/try_login', payload)
+    then(
       resp => {
         if(resp.token === "ok") navigate("/");
       }
