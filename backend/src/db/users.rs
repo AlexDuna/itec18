@@ -34,7 +34,7 @@ pub async fn insert_new_user(
             if row.rows_remaining() > 0 { return None; }
             else {
                 return Some(session
-                    .query_unpaged(statics::INSERT_NEW_USER, (user.username, user.password_hash, user.email))
+                    .query_unpaged(statics::INSERT_NEW_USER, (user.username, user.password_hash))
                     .await
                     .map(|_|())
                     .map_err(From::from)); 
@@ -42,7 +42,7 @@ pub async fn insert_new_user(
         },
         _ => {
             return Some(session
-                .query_unpaged(statics::INSERT_NEW_USER, (user.username, user.password_hash, user.email))
+                .query_unpaged(statics::INSERT_NEW_USER, (user.username, user.password_hash))
                 .await
                 .map(|_|())
                 .map_err(From::from));

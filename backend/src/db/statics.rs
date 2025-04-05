@@ -22,7 +22,7 @@ pub static INSERT_SERVER: &str = r#"
 
 
 pub static INSERT_NEW_USER: &str = r#"
-    INSERT INTO division_online.users (username, password_hash, email)
-        VALUES (?,?,?);
+    INSERT INTO division_online.users (username, password_hash)
+        VALUES (?,?);
 "#;
 

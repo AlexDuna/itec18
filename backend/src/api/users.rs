@@ -55,7 +55,6 @@ pub async fn new_user_login(
     };
     let user_instance = db::structures::User::new(
         form.username.clone(),
-        form.email.clone(),
         password_hash.clone(),
     );
     

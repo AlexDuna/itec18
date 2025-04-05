@@ -13,6 +13,5 @@ pub struct LoginUser {
 #[derive(serde::Deserialize)]
 pub struct NewUser {
     pub username: String,
-    pub email: String,
     pub password: String 
 }
