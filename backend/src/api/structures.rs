@@ -26,3 +26,20 @@ use crate::db;
 pub struct SessionData {
     pub sessions: Vec<db::structures::Session>
 }
+
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct SessionMessages {
+    pub messages: Vec<db::structures::MessageHolder>
+}
+
+#[derive(serde::Deserialize)]
+pub struct SessionHolder {
+    pub session: String
+}
+
+#[derive(serde::Deserialize)]
+pub struct MessageSessionHolder {
+    pub session: String,
+    pub username: String,
+    pub content: String
+}

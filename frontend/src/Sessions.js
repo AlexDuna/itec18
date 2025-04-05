@@ -21,6 +21,8 @@ import  axios  from 'axios';
 function Sessions() {
     const [isOpen, setIsOpen] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
+
+      const [o_sessions, setSessions] = useState([]);
     const navigate = useNavigate();
     const toggleChat = () => {
         setIsOpen(prevState => !prevState);
@@ -28,7 +30,6 @@ function Sessions() {
 
     const getSessions = () => {
       const payload = { username: 'alex'};
-      const [o_sessions, setSessions] = useState([]);
 	let config = {
 	      headers: {
 		      "Access-Control-Allow-Origin": "*",
@@ -73,7 +74,11 @@ function Sessions() {
   return (
 	
     <div>
-
+      <div className="pop">
+      <div className="chatbar" placeholder='Chat here'>
+                     <input className="chatin" placeholder='Chat...'/>
+                    </div>
+      </div>
         <div className="top">
         <div className="searchbar" placeholder='Search Session'>
             <input className="searchin" placeholder='Search for session'/>

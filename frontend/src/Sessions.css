@@ -214,4 +214,18 @@ z-index:0;
     background-color: white; 
     z-index: 1000;        
   }
-  
+.pop {
+  position: absolute;
+  width: 400px;
+  height: 100px;
+  margin-right: 0px;
+  background-color: rgba(3, 3, 3, 0.05);
+  backdrop-filter: blur(5px);
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 999;
+}
+

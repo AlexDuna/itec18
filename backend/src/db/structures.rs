@@ -33,3 +33,9 @@ pub struct Session {
     pub owner: Option<String>,
     pub tag: Option<String>
 }
+
+#[derive(scylla::SerializeRow, Clone,serde::Serialize, serde::Deserialize)]
+pub struct MessageHolder {
+    pub content: Option<String>,
+    pub username: Option<String>
+}

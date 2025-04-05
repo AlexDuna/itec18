@@ -25,6 +25,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             .service(api::users::try_login)
             .service(api::users::new_user_login)
             .service(api::sessions::fetch_session_data)
+            .service(api::sessions::send_session_message)
+            .service(api::sessions::fetch_session_messages)
     })
     .bind(("127.0.0.1", 1313))?
     .workers(8)
