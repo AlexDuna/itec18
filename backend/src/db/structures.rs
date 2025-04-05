@@ -25,7 +25,7 @@ pub struct SessionHolder {
     pub session: Option<String>
 }
 
-#[derive(scylla::SerializeRow, Clone, serde::Deserialize)]
+#[derive(scylla::SerializeRow, Clone,serde::Serialize, serde::Deserialize)]
 pub struct Session {
     pub session: Option<String>,
     pub config: Option<String>,

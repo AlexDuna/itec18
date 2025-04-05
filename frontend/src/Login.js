@@ -55,8 +55,8 @@ axios.post('https://onlinedi.vision/api/try_login', payload, config)
       resp => {
         console.log(resp);
 	if(resp.data.token === "ok") { 
-    setCookie('user', u, { path: '/sessions' });
-    navigate("/");
+    setCookie('user', u, { path: '/' });
+    navigate("/sessions");
 	console.log("ok");
 	}
       }
@@ -76,7 +76,8 @@ axios.post('https://onlinedi.vision/api/new_user', payload, config)
     .then(
       resp => {
         console.log(resp);
-	if(resp.data.token === "ok") { navigate("/");
+	if(resp.data.token === "ok") { 
+		navigate("/sessions");
 	console.log("ok");
 	}
       }

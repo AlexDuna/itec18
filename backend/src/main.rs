@@ -24,6 +24,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             .wrap(Logger::new("%a %{User-Agent}i %U"))
             .service(api::users::try_login)
             .service(api::users::new_user_login)
+            .service(api::sessions::fetch_session_data)
     })
     .bind(("127.0.0.1", 1313))?
     .workers(8)

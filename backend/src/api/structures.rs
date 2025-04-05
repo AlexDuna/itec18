@@ -22,7 +22,7 @@ pub struct UserHolder {
 }
 
 use crate::db;
-#[derive(serde::Deserialize)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct SessionData {
     pub sessions: Vec<db::structures::Session>
 }

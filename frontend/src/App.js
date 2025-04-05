@@ -5,6 +5,7 @@ import './Main.css';
 import { Navbar, Container} from 'react-bootstrap';
 import { SearchBar } from './components/SearchBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CookiesProvider } from 'react-cookie'
 
 import Main from './Main.js';
 import Login from './Login.js';
@@ -57,7 +58,8 @@ function NavigationBar() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <CookiesProvider>
+	  <BrowserRouter>
       <div className="App">
         {/* Afișăm navbar-ul doar pe rutele care nu sunt /login */}
         <NavigationBar />
@@ -72,6 +74,7 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+	  </CookiesProvider>
   );
 }
 
