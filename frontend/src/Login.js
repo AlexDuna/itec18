@@ -5,6 +5,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Stage} from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
 import  axios  from 'axios';
+import { useCookies } from 'react-cookie';
 
 function RotatingModel({ position, scale = 1 , path = "/book.glb"}) {
   const { scene } = useGLTF(path); // Asigură-te că e în /public
@@ -31,7 +32,11 @@ const Page = () => {
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState(""); 
+
   let navigate = useNavigate();
+  
+  const [cookies, setCookie] = useCookies(['user']);
+
   console.log(state);
   const handleForm = (e) => {
     e.preventDefault();
@@ -49,7 +54,9 @@ axios.post('https://onlinedi.vision/api/try_login', payload, config)
     .then(
       resp => {
         console.log(resp);
-	if(resp.data.token === "ok") { navigate("/");
+	if(resp.data.token === "ok") { 
+    setCookie('user', u, { path: '/sessions' });
+    navigate("/");
 	console.log("ok");
 	}
       }

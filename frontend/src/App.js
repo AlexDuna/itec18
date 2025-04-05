@@ -10,6 +10,7 @@ import Main from './Main.js';
 import Login from './Login.js';
 import Sessions from './Sessions.js'
 import ScrollToTop from './components/ScrollToTop';
+import Session from './Session';
 
 async function get_sessions(user) {
   return {
@@ -67,6 +68,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/sessions" element={<Sessions />} /> {/* Ruta pentru sesiuni */}
           <Route path="/login" element={<Login />} />
+          <Route path="/session" element={<Session />} />
         </Routes>
       </div>
     </BrowserRouter>
