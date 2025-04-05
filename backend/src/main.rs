@@ -25,7 +25,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             .service(api::users::try_login)
             .service(api::users::new_user_login)
     })
-    .bind_rustls_0_23(("0.0.0.0", 1313),tls_config)?
+    .bind(("127.0.0.1", 1313))?
     .workers(8)
     .run()
     .await;

@@ -4,6 +4,7 @@ import './Login.css';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Stage} from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
+import  axios  from 'axios';
 
 function RotatingModel({ position, scale = 1 , path = "/book.glb"}) {
   const { scene } = useGLTF(path); // Asigură-te că e în /public
@@ -38,10 +39,19 @@ const Page = () => {
   }
   const login = (u, p) => {
     const payload = { username: u, password: p };
-    axios.post('https://onlinedi.vision:1313/api/try_login', payload)
-    then(
+	  console.log(u);
+    let config = {
+	      headers: {
+		          "Access-Control-Allow-Origin": "*",
+		        }
+    }
+axios.post('https://onlinedi.vision/api/try_login', payload, config)
+    .then(
       resp => {
-        if(resp.token === "ok") navigate("/");
+        console.log(resp);
+	if(resp.data.token === "ok") { navigate("/");
+	console.log("ok");
+	}
       }
     ).catch(
       err => console.log(err)
