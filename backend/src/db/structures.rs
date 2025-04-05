@@ -19,3 +19,17 @@ impl User {
     }
 
 }
+
+#[derive(scylla::SerializeRow)]
+pub struct SessionHolder {
+    pub session: Option<String>
+}
+
+#[derive(scylla::SerializeRow, Clone, serde::Deserialize)]
+pub struct Session {
+    pub session: Option<String>,
+    pub config: Option<String>,
+    pub name: Option<String>,
+    pub owner: Option<String>,
+    pub tag: Option<String>
+}
