@@ -1,8 +1,9 @@
 // Login.js
-import React, { useRef, useState } from 'react';
+import React, {act, useRef, useState} from 'react';
 import './Login.css';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Stage} from '@react-three/drei';
+import { useNavigate } from 'react-router-dom';
 
 function RotatingModel({ position, scale = 1 , path = "/book.glb"}) {
   const { scene } = useGLTF(path); // Asigură-te că e în /public
@@ -28,13 +29,33 @@ const Page = () => {
   let [state, setState] = useState(1);
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-
+  let [password, setPassword] = useState(""); 
+  let navigate = useNavigate();
   console.log(state);
   const handleForm = (e) => {
     e.preventDefault();
     console.log(e.defaultPrevented);
   }
+  const login = (u, p) => {
+    fetch("https://onlinedi.vision:1313/api/try_login", {
+      method: "POST",
+      body: JSON.stringify({
+        username: u,
+        password: p,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        'Access-Control-Allow-Origin':'*',
+      }
+    }).then(
+      resp => {
+        if(resp.token === "ok") navigate("/");
+      }
+    ).catch(
+      err => console.log(err)
+    );
+  }
+
   return(
   <div className="login-page">
         { state ? (
@@ -44,7 +65,7 @@ const Page = () => {
         <div className="formdiv">
           <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} placeholder="Username" />
           <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password" />
-          <button className="submit" onClick={()=>{console.log(password)}}>Login</button>
+          <button className="submit" onClick={()=>{login(username, password)}}>Login</button>
           <button type="button"  value={state} onClick={()=>setState(0)}>Do not have an account?</button>
         </div>
         </div>
