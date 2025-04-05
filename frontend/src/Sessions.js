@@ -16,9 +16,11 @@ import { SearchBar } from './components/SearchBar';
 import { CgProfile } from "react-icons/cg";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
+import  axios  from 'axios';
 
 function Sessions() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoaded, setLoaded] = useState(false);
     const navigate = useNavigate();
     const toggleChat = () => {
         setIsOpen(prevState => !prevState);
@@ -26,20 +28,22 @@ function Sessions() {
 
     const getSessions = () => {
       const payload = { username: 'alex'};
-	    console.log(u);
-      let config = {
+      const [o_sessions, setSessions] = useState([]);
+	let config = {
 	      headers: {
 		      "Access-Control-Allow-Origin": "*",
 		    }
       }
-      axios.post('https://onlinedi.vision/api/try_login', payload, config)
+      axios.post('https://onlinedi.vision/api/fetch_session_data', payload, config)
         .then(
             resp => {
-              o_sessions = resp.data.sessions;
+              setSessions(resp.data.sessions);
+	      console.log(o_sessions);
            }
         ).catch(
-          err => {o_sessions = []}
+          err => {setSessions([]);}
         );
+	console.log(o_sessions);
         return {
           recommended: [
             {
@@ -67,6 +71,7 @@ function Sessions() {
       
 
   return (
+	
     <div>
 
         <div className="top">
@@ -98,12 +103,12 @@ function Sessions() {
     <Col>
       <h1>Your Sessions</h1>
       {getSessions().sessions.map((item) => (
-        <Card key={item.id} className='hover-card' style={{ width: '100%', height:'300px', marginBottom: '1rem' }}>
+        <Card key={item.session} className='hover-card' style={{ width: '100%', height:'300px', marginBottom: '1rem' }}>
           <Card.Body>
-            <Card.Title>{item.title}</Card.Title>
-            <Card.Text>{item.description}</Card.Text>
+            <Card.Title>{item.name}</Card.Title>
+            <Card.Text>{item.config}</Card.Text>
             <p><strong>Author:</strong> {item.owner}</p>
-            <Button variant="dark" onClick={()=>{navigate("/session?id="+item.id)}}>Access Session</Button>
+            <Button variant="dark" onClick={()=>{navigate("/session?id="+item.session)}}>Access Session</Button>
           </Card.Body>
         </Card>
       ))}
