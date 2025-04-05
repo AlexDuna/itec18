@@ -25,6 +25,21 @@ function Sessions() {
     };
 
     const getSessions = () => {
+      const payload = { username: 'alex'};
+	    console.log(u);
+      let config = {
+	      headers: {
+		      "Access-Control-Allow-Origin": "*",
+		    }
+      }
+      axios.post('https://onlinedi.vision/api/try_login', payload, config)
+        .then(
+            resp => {
+              o_sessions = resp.data.sessions;
+           }
+        ).catch(
+          err => {o_sessions = []}
+        );
         return {
           recommended: [
             {
@@ -46,26 +61,7 @@ function Sessions() {
                 owner: "Larisa"
               } 
           ],
-          sessions: [
-            {
-              id: "s1",
-              title: "Vue Intro",
-              description: "Introduction to Vue.js framework.",
-              owner: "Ana",
-            },
-            {
-              id: "s2",
-              title: "Angular Workshop",
-              description: "Build scalable web apps with Angular.",
-              owner: "Tuspi",
-            },
-            {
-                id: "s3",
-                title: "Fullstack Fundamentals",
-                description: "Learn how to build complete web apps using Node.js, Express, and MongoDB.",
-                owner: "David"
-            }      
-          ],
+          sessions: o_sessions,
         };
       };
       
