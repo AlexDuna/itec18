@@ -9,3 +9,10 @@ pub struct LoginUser {
     pub username: String,
     pub password: String
 }
+
+#[derive(serde::Deserialize)]
+pub struct NewUser {
+    pub username: String,
+    pub email: String,
+    pub password: String 
+}

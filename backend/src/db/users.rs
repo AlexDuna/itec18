@@ -1,6 +1,8 @@
 use crate::db::structures;
 use crate::db::statics;
 
+pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+
 pub async fn get_user_password_hash(
     session: &scylla::client::session::Session,
     user: structures::UserUsername
@@ -17,4 +19,33 @@ pub async fn get_user_password_hash(
         };
     }
     None
+}
+
+
+pub async fn insert_new_user(
+    session: &scylla::client::session::Session,
+    user: structures::User
+) -> Option<Result<()>> {
+    let query_rows = session.query_unpaged(statics::SELECT_USER_USERNAME, (user.username.clone(),))
+        .await.ok()?
+        .into_rows_result().ok()?;
+    match query_rows.rows::<(Option<&str>,)>() {
+        Ok(row) => {
+            if row.rows_remaining() > 0 { return None; }
+            else {
+                return Some(session
+                    .query_unpaged(statics::INSERT_NEW_USER, (user.username, user.password_hash, user.email))
+                    .await
+                    .map(|_|())
+                    .map_err(From::from)); 
+            }
+        },
+        _ => {
+            return Some(session
+                .query_unpaged(statics::INSERT_NEW_USER, (user.username, user.password_hash, user.email))
+                .await
+                .map(|_|())
+                .map_err(From::from));
+        }
+    }
 }

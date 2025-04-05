@@ -23,6 +23,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             .app_data(session.clone())
             .wrap(Logger::new("%a %{User-Agent}i %U"))
             .service(api::users::try_login)
+            .service(api::users::new_user_login)
     })
     .bind_rustls_0_23(("0.0.0.0", 1313),tls_config)?
     .workers(8)

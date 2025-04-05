@@ -7,7 +7,7 @@ pub fn obtain_tls_config() -> rustls::ServerConfig {
         .install_default()
         .unwrap();
 
-    let mut cert_file = std::io::BufReader::new(std::fs::File::open("/etc/letsencrypt/live/onlinedi.vision/cert.pem").unwrap());
+    let mut cert_file = std::io::BufReader::new(std::fs::File::open("/etc/letsencrypt/live/onlinedi.vision/fullchain.pem").unwrap());
     let mut priv_key = std::io::BufReader::new(std::fs::File::open("/etc/letsencrypt/live/onlinedi.vision/privkey.pem").unwrap());
     
     let tls_certificates = rustls_pemfile::certs(&mut cert_file)
