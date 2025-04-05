@@ -1,8 +1,10 @@
 // Login.js
-import React, { useRef, useState } from 'react';
+import React, {act, useRef, useState} from 'react';
 import './Login.css';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Stage} from '@react-three/drei';
+import { useNavigate } from 'react-router-dom';
+import  axios  from 'axios';
 
 function RotatingModel({ position, scale = 1 , path = "/book.glb"}) {
   const { scene } = useGLTF(path); // Asigură-te că e în /public
@@ -28,13 +30,34 @@ const Page = () => {
   let [state, setState] = useState(1);
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-
+  let [password, setPassword] = useState(""); 
+  let navigate = useNavigate();
   console.log(state);
   const handleForm = (e) => {
     e.preventDefault();
     console.log(e.defaultPrevented);
   }
+  const login = (u, p) => {
+    const payload = { username: u, password: p };
+	  console.log(u);
+    let config = {
+	      headers: {
+		          "Access-Control-Allow-Origin": "*",
+		        }
+    }
+axios.post('https://onlinedi.vision/api/try_login', payload, config)
+    .then(
+      resp => {
+        console.log(resp);
+	if(resp.data.token === "ok") { navigate("/");
+	console.log("ok");
+	}
+      }
+    ).catch(
+      err => console.log(err)
+    );
+  }
+
   return(
   <div className="login-page">
         { state ? (
@@ -42,9 +65,9 @@ const Page = () => {
          <div className="login-container">
         <h2>Log In</h2>
         <div className="formdiv">
-          <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} placeholder="Username" required/>
-          <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password" required/>
-          <button className="submit" onClick={()=>{console.log(password)}}>Login</button>
+          <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} placeholder="Username" />
+          <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password" />
+          <button className="submit" onClick={()=>{login(username, password)}}>Login</button>
           <button type="button"  value={state} onClick={()=>setState(0)}>Do not have an account?</button>
         </div>
         </div>
