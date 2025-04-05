@@ -37,6 +37,12 @@
     flex-direction: column;
     gap: 15px;
   }
+
+  .login-container .formdiv {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
   
   .login-container input {
     padding: 10px 15px;
@@ -46,7 +52,12 @@
     color: black;
     font-size: 1rem;
   }
-  
+  .login-container input:focus {
+    outline: 3px solid black;
+  }
+  .login-container input:hover {
+    background-color: #f1f1e1e1
+  }
   .login-container button {
     padding: 12px;
     background: black;
@@ -56,6 +67,7 @@
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s ease;
+    
   }
   
   .login-container button:hover {

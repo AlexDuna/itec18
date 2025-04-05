@@ -7,9 +7,9 @@ import { useGLTF, Stage} from '@react-three/drei';
 function RotatingModel({ position, scale = 1 , path = "/book.glb"}) {
   const { scene } = useGLTF(path); // Asigură-te că e în /public
   const ref = useRef();
-  let change = 0.00005;
+  let change = 0.0001;
   let accumchange = 0;
-  let max = 0.01;
+  let max = 0.02;
   useFrame(() => {
     if (ref.current) {
       ref.current.position.y += change;
@@ -26,36 +26,46 @@ function RotatingModel({ position, scale = 1 , path = "/book.glb"}) {
 
 const Page = () => {
   let [state, setState] = useState(1);
+  let [username, setUsername] = useState("");
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+
   console.log(state);
+  const handleForm = (e) => {
+    e.preventDefault();
+    console.log(e.defaultPrevented);
+  }
   return(
   <div className="login-page">
         { state ? (
 
          <div className="login-container">
-        <h2>Login</h2>
-        <form>
-          <input type="text" placeholder="Username" />
-          <input type="password" placeholder="Password" />
-          <button className="submit" type="submit">Login</button>
-          <button className="submit" type="submit" onClick={()=>setState(0)}>Already have an account?</button>
-        </form>
+        <h2>Log In</h2>
+        <div className="formdiv">
+          <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} placeholder="Username" />
+          <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password" />
+          <button className="submit" onClick={()=>{console.log(password)}}>Login</button>
+          <button type="button"  value={state} onClick={()=>setState(0)}>Do not have an account?</button>
+        </div>
         </div>
         ):(
           <div className="login-container">
-        <h2>Login</h2>
-        <form>
-          <input type="text" placeholder="Username" />
-          <input type="text" placeholder="Email" />
-          <input type="password" placeholder="Password" />
+        <h2>Sign Up</h2>
+        <div className="formdiv">
+          <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)}  placeholder="Username" />
+          <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email" />
+          <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}  placeholder="Password" />
           <button className="submit" type="submit">Login</button>
-        </form>
+          
+          <button type="button"  value={state} onClick={()=>setState(1)}>Already have an account?</button>
+        </div>
         
         </div>
         )}
-<div className='canvas-side'>
-        <Canvas dpr={[1,2]} shadows camera={{ fov: 60 }} style={{ position: "absolute", top: 0, left: '30%', height: "100%", width: "100%" }}>
+    <div className='canvas-side'>
+        <Canvas dpr={[1,2]} shadows camera={{ fov: 20 }} style={{ position: "absolute", top: 0, left: '20%', height: "100%", width: "100%" }}>
             <Stage environment={"sunset"}>
-              <RotatingModel scale={1.0} />
+              <RotatingModel scale={2.0} />
            </Stage>
         </Canvas>
        </div>
