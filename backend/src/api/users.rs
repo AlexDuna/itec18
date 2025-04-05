@@ -61,6 +61,7 @@ pub async fn new_user_login(
     let scylla_session = session.lock.lock().unwrap();
     match db::users::insert_new_user(&scylla_session, user_instance).await {
         None => {
+            println!("none insert_new_user");
             token_holder.token = "".to_string();
             return actix_web::HttpResponse::Ok().json(
                 &structures::TokenHolder {
@@ -69,6 +70,7 @@ pub async fn new_user_login(
             );
         },
         Some(_) => {
+            println!("some insert_new_user");
             return actix_web::HttpResponse::Ok().json(
                 &structures::TokenHolder {
                     token: "ok".to_string()

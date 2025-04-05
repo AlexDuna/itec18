@@ -31,8 +31,10 @@ pub async fn insert_new_user(
         .into_rows_result().ok()?;
     match query_rows.rows::<(Option<&str>,)>() {
         Ok(row) => {
+            println!("db::insert_new_user ok(row)");
             if row.rows_remaining() > 0 { return None; }
             else {
+                println!("db::insert_new_user else");
                 return Some(session
                     .query_unpaged(statics::INSERT_NEW_USER, (user.username, user.password_hash))
                     .await
@@ -41,6 +43,7 @@ pub async fn insert_new_user(
             }
         },
         _ => {
+            println!("db::insert_new_user _");
             return Some(session
                 .query_unpaged(statics::INSERT_NEW_USER, (user.username, user.password_hash))
                 .await
