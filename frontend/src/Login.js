@@ -64,7 +64,26 @@ axios.post('https://onlinedi.vision/api/try_login', payload, config)
       err => console.log(err)
     );
   }
-
+  const signup = (u, p, e) => {
+    const payload = { username: u, password: p };
+	  console.log(u);
+    let config = {
+	      headers: {
+		          "Access-Control-Allow-Origin": "*",
+		        }
+    }
+axios.post('https://onlinedi.vision/api/new_user', payload, config)
+    .then(
+      resp => {
+        console.log(resp);
+	if(resp.data.token === "ok") { navigate("/");
+	console.log("ok");
+	}
+      }
+    ).catch(
+      err => console.log(err)
+    );
+  }
   return(
   <div className="login-page">
         { state ? (
@@ -85,7 +104,7 @@ axios.post('https://onlinedi.vision/api/try_login', payload, config)
           <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)}  placeholder="Username" required/>
           <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email" required/>
           <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}  placeholder="Password" required/>
-          <button className="submit" type="submit">Login</button>
+          <button className="submit" onClick={()=>{signup(username,password,email)}}>Sign Up</button>
           
           <button type="button"  value={state} onClick={()=>setState(1)}>Already have an account?</button>
         </div>
