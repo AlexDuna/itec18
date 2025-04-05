@@ -1,0 +1,125 @@
+/* src/components/Sessions.css */
+h1 {
+    color: #020202;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+  }
+  
+  strong {
+    color: #333;
+  }
+
+  .card{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 1rem; 
+    gap: 0.5rem;
+    margin-right: 100px;
+  }
+
+  .hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    background-color: #f8f9fa;
+  }
+
+  .right-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0px;
+    width: 100px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    border-left: 1px solid #ddd;
+    padding: 2rem 1rem;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  
+  .right-sidebar .nav-link {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .right-sidebar .nav-link:hover {
+    color: #737b80;
+    transform: translateX(-5px);
+  }
+  
+  #chat-icon {
+    cursor: pointer;
+}
+
+  #chat-icon {
+    position: relative;
+    cursor: pointer;
+  }
+  
+
+.chat-section {
+    position:fixed;
+    top: 0;
+    right: -100%; /* Secțiunea este ascunsă inițial */
+    width: 50%; /* Ocupă jumătate din lățimea ecranului */
+    height: 100%;
+    margin-right: 70px;
+    background-color: rgba(192, 177, 177, 0.9);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.5s ease, opacity 0.5s ease; /* Animația de deplasare */
+    opacity: 0;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 1;
+}
+
+.chat-section.open {
+    right: 0;  /*Când secțiunea este deschisă, se va deplasa la 0 */
+    opacity: 1;
+}
+
+.chat-content {
+    /* Stiluri pentru conținutul din interiorul secțiunii */
+    padding: 10px;
+}
+
+.chat-content h2 {
+    margin-top: 0;
+}
+
+.chat-content svg {
+    position: absolute;
+    bottom: 70px; /* Plasează iconul la 20px de jos */
+    right: 70px;  /* Plasează iconul la 20px de dreapta */
+    cursor: pointer; /* Schimbă cursorul pentru interactivitate */
+}
+
+.chat-content svg:hover {
+    color: red; /* Poți adăuga o schimbare de culoare la hover pentru un efect vizual */
+}
+  

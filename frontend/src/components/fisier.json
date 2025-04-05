@@ -1,0 +1,23 @@
+{
+    "sessions": [
+      {
+        "id": "asdsadsad",
+        "title": "Sesiunea 1"
+      },
+      {
+        "id": "adasdasd",
+        "title": "Sesiunea 2"
+      }
+    ],
+    "recommended": [
+      {
+        "id": "asdsadsad",
+        "title": "Recomandarea 1"
+      },
+      {
+        "id": "adasdasd",
+        "title": "Recomandarea 2"
+      }
+    ]
+  }
+  
