@@ -57,7 +57,26 @@ axios.post('https://onlinedi.vision/api/try_login', payload, config)
       err => console.log(err)
     );
   }
-
+  const signup = (u, p, e) => {
+    const payload = { username: u, password: p };
+	  console.log(u);
+    let config = {
+	      headers: {
+		          "Access-Control-Allow-Origin": "*",
+		        }
+    }
+axios.post('https://onlinedi.vision/api/new_user', payload, config)
+    .then(
+      resp => {
+        console.log(resp);
+	if(resp.data.token === "ok") { navigate("/");
+	console.log("ok");
+	}
+      }
+    ).catch(
+      err => console.log(err)
+    );
+  }
   return(
   <div className="login-page">
         { state ? (
