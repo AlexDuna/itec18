@@ -20,9 +20,9 @@ import  axios  from 'axios';
 
 function Sessions() {
     const [isOpen, setIsOpen] = useState(false);
-    const [isLoaded, setLoaded] = useState(false);
+    const [isLoaded, setLoaded] = useState(0);
 
-      const [o_sessions, setSessions] = useState([]);
+    const [o_sessions, setSessions] = useState([]);
     const navigate = useNavigate();
     const toggleChat = () => {
         setIsOpen(prevState => !prevState);
@@ -35,14 +35,45 @@ function Sessions() {
 		      "Access-Control-Allow-Origin": "*",
 		    }
       }
+      if(isLoaded === 1) {
+        console.log("heeeeeeeeeeeeeeei");
+        return {
+          recommended: [
+            {
+              id: "rec1",
+              title: "React Basics",
+              description: "Learn the basics of React.",
+              owner: "Mic",
+              },
+            {
+              id: "rec2",
+              title: "Advanced React",
+              description: "Dive deeper into React hooks and patterns.",
+              owner: "Fruja",
+            },
+            {
+                id: "s4",
+                title: "UI/UX Design Essentials",
+                description: "Master the basics of user experience and interface design using Figma.",
+                owner: "Larisa"
+              } 
+          ],
+          sessions: o_sessions,
+        };
+
+      }
       axios.post('https://onlinedi.vision/api/fetch_session_data', payload, config)
         .then(
             resp => {
               setSessions(resp.data.sessions);
+              setLoaded(1);
 	      console.log(o_sessions);
            }
         ).catch(
-          err => {setSessions([]);}
+          err => {
+            setLoaded(1);
+            setSessions([]);
+          }
         );
 	console.log(o_sessions);
         return {
