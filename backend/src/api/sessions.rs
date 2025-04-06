@@ -63,7 +63,7 @@ pub async fn send_session_message(
 
   
     let scylla_session = session.lock.lock().unwrap();
-    match db::messages::send_session_message(&scylla_session, form.session.clone(), form.content.clone(), form.username.clone()).await {
+    match db::messages::send_session_message(&scylla_session, form.session.clone(), form.username.clone(), form.content.clone()).await {
         Ok(_) => {
             actix_web::HttpResponse::Ok().json(
                 &structures::TokenHolder {

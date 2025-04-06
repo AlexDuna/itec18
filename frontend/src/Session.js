@@ -31,7 +31,6 @@ const navigate = useNavigate();
 
     const toggleChat = () => {
         setIsOpen(prevState => !prevState);
-        getMessages();
     };
 
 const cardRefs = useRef([]);
@@ -230,7 +229,6 @@ const cardRefs = useRef([]);
         axios.post('https://onlinedi.vision/api/send_session_message', payload)
         .then(
             resp => {
-              setMessages(resp.data.messages);
               setLoaded(1);
               console.log('test');
            }
@@ -244,17 +242,18 @@ const cardRefs = useRef([]);
     }
 
     const getMessages = () => {
-        if(isLoaded === 1) return;
+        if(isLoaded === 1) return messages;
         console.log(searchParams.get('id'));
         let payload = {
             session:searchParams.get('id')
         }
+	  console.log(payload);
         axios.post('https://onlinedi.vision/api/fetch_session_message', payload)
                 .then(
                     resp => {
                       setMessages(resp.data.messages);
                       setLoaded(1);
-                      console.log('test');
+                      console.log(messages);
                    }
                 ).catch(
                   err => {
@@ -263,12 +262,13 @@ const cardRefs = useRef([]);
                     setMessages([]);
                   }
                 );
+	    return messages;
       };
     return (
 <>
 <div className={`right-sidebar ${isOpen ? 'shifted' : ''}`}>
             <Nav defaultActiveKey="/sessions" className="flex-column">
-                <Nav.Link onClick={toggleChat}>
+                <Nav.Link onClick={()=>toggleChat()}>
                     { isOpen ? (
                         <IoMailOpenOutline id="chat-icon" size={30} />
                     ):(
@@ -279,10 +279,10 @@ const cardRefs = useRef([]);
             
         <div className={`chat-section ${isOpen ? 'open' : ''}`}>
             <div className="chat-content"> 
-                    {messages.map((msg, index) => (
+	    	{getMessages().map((msg, index) => (
                     <div key={index} className={`chat-message-received `}>
                         <p className="align">
-                       <b> {`${msg.id}: `} </b>  {`${msg.content}`}
+                       <b> {`${msg.username}: `} </b>  {`${msg.content}`}
                         </p>
                     </div>
                 ))}
@@ -291,7 +291,7 @@ const cardRefs = useRef([]);
                 <div className="chatbar" placeholder='Chat here'>
                         <input className="chatin" value={chatm} onChange={(e)=>{setChatm(e.target.value);}} placeholder='Chat...' />
                     </div>
-                    <button className="pfp2" onClick={sendMessage()}>
+                    <button className="pfp2" onClick={()=>sendMessage()}>
                         <VscSend size={40} />
                     </button>
             </div>

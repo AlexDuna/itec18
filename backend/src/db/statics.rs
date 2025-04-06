@@ -37,7 +37,7 @@ pub static SELECT_SESSION: &str = r#"
 pub static SELECT_SESSION_MESSAGES: &str = r#"
     SELECT content, username FROM division_online.i_messages
         WHERE session = ?
-            ALTER FILTERING;"
+            ALLOW FILTERING;
 "#;
 
 pub static INSERT_MESSAGE: &str = r#"
