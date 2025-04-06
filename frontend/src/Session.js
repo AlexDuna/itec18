@@ -26,6 +26,7 @@ const [isOpen, setIsOpen] = useState(false);
 const [isLoaded, setLoaded] = useState(0);
 const [messages, setMessages] = useState([]);
 const [searchParams, setSearchParams] = useSearchParams();
+const [chatm, setChatm] = useState("");
 const navigate = useNavigate();
 
     const toggleChat = () => {
@@ -220,6 +221,28 @@ const cardRefs = useRef([]);
         ]};
     };
 
+    const sendMessage = () => {
+        let payload = {
+            username: 'alex',
+            content: chatm,
+            session: searchParams.get('id')
+        }
+        axios.post('https://onlinedi.vision/api/send_session_message', payload)
+        .then(
+            resp => {
+              setMessages(resp.data.messages);
+              setLoaded(1);
+              console.log('test');
+           }
+        ).catch(
+          err => {
+          console.log('fail');
+            setLoaded(1);
+            setMessages([]);
+          }
+        );
+    }
+
     const getMessages = () => {
         if(isLoaded === 1) return;
         console.log(searchParams.get('id'));
@@ -266,9 +289,9 @@ const cardRefs = useRef([]);
             </div>
             <div className="bar">
                 <div className="chatbar" placeholder='Chat here'>
-                        <input className="chatin" placeholder='Chat...' />
+                        <input className="chatin" value={chatm} onChange={(e)=>{setChatm(e.target.value);}} placeholder='Chat...' />
                     </div>
-                    <button className="pfp2">
+                    <button className="pfp2" onClick={sendMessage()}>
                         <VscSend size={40} />
                     </button>
             </div>
