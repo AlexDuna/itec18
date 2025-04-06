@@ -17,13 +17,20 @@ import { IoIosSchool } from "react-icons/io";
 import { useRef } from 'react';
 import { IoSend } from "react-icons/io5";
 import { VscSend } from "react-icons/vsc";
+import axios from 'axios';
+import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router"
 
 export default function Session() {
 const [isOpen, setIsOpen] = useState(false);
+const [isLoaded, setLoaded] = useState(0);
+const [messages, setMessages] = useState([]);
+const [searchParams, setSearchParams] = useSearchParams();
 const navigate = useNavigate();
 
     const toggleChat = () => {
         setIsOpen(prevState => !prevState);
+        getMessages();
     };
 
 const cardRefs = useRef([]);
@@ -32,6 +39,7 @@ const cardRefs = useRef([]);
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
+
 
     const getThemes = () => {
         return {
@@ -213,25 +221,26 @@ const cardRefs = useRef([]);
     };
 
     const getMessages = () => {
-        return {
-          messaje: [
-            {
-              id: "user1",
-              content: "Bro you literally suck at cs how the fuck you have 1000 hours played on linux and you play like shit"
-            },
-            {
-                id: "user2",
-                content: "Broooo fuck out my chat tffff you oon"
-            },
-            {
-                id: "user3",
-                content: "Certified shitbox <3333333333"
-            },
-        ]};
+        if(isLoaded === 1) return;
+        console.log(searchParams.get('id'));
+        let payload = {
+            session:searchParams.get('id')
+        }
+        axios.post('https://onlinedi.vision/api/fetch_session_message', payload)
+                .then(
+                    resp => {
+                      setMessages(resp.data.messages);
+                      setLoaded(1);
+                      console.log('test');
+                   }
+                ).catch(
+                  err => {
+                  console.log('fail');
+                    setLoaded(1);
+                    setMessages([]);
+                  }
+                );
       };
-
-      const messages = getMessages().messaje;
-    
     return (
 <>
 <div className={`right-sidebar ${isOpen ? 'shifted' : ''}`}>
@@ -249,7 +258,9 @@ const cardRefs = useRef([]);
             <div className="chat-content"> 
                     {messages.map((msg, index) => (
                     <div key={index} className={`chat-message-received `}>
-                        <strong>{msg.id}:</strong> {msg.content}
+                        <p className="align">
+                       <b> {`${msg.id}: `} </b>  {`${msg.content}`}
+                        </p>
                     </div>
                 ))}
             </div>
