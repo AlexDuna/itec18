@@ -21,6 +21,8 @@ h1 {
     color: #333;
   }
 
+
+
   .card{
     display: flex;
     justify-content: space-around;
@@ -166,6 +168,19 @@ z-index:0;
 .pfp:hover{
     border: solid 2px black;
 }
+
+.pfp2 {
+    height: 60px;
+    width: 60px;
+    border-radius: 100px;
+    border: solid 2px rgb(206, 199, 199);
+    background-color: white;
+    margin-left: calc(100% - 52px);
+}
+.pfp2:hover{
+    border: solid 2px black;
+}
+
 .top {
     display: flex;
     gap: 2px;
@@ -204,14 +219,98 @@ z-index:0;
 .chatbar {
     display: flex;
     height: 60px;
-    width: 98%;
+    width: calc(98% - 55px);
     border-radius: 100px;
     border: solid 2px rgb(206, 199, 199);
     position: fixed;
-    bottom: 20px;     
+    bottom: 20px;    
+    margin-right: 40px; 
     left: 0;
+    gap:8px;
     padding: 0 20px;      
     background-color: white; 
     z-index: 1000;        
   }
+.chatbar:hover {
+    border: solid 2px black;
+
+}
+  .send-icon{
+    color:#b300aa;
+    cursor:pointer;
+    z-index: 10000;
+  }
   
+.course{
+    border: hidden;
+    text-align: left;
+    margin-right: 25px;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.hover-course{
+    margin-top: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.hover-course:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    background-color: #f8f9fa;
+    border: hidden;
+  }
+
+.h1-course{
+    text-align: left;
+    margin-left: 30px;
+    padding-left: 20px;
+}
+
+.icon-course{
+    margin-right: 20px;
+}
+
+.next-button{
+    background-color: #aaaaaa;
+    border:hidden;
+}
+
+.next-button:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(238, 237, 237, 0.15);
+    border:hidden;
+}
+
+.send-btn {
+    background-color: #007bff;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.send-btn:hover {
+    background-color: #0056b3;
+}
+
+.bottom{
+
+}
+.bar {
+    display: flex;
+    height: 60px;
+    width: 98%;
+
+    position: fixed;
+    bottom: 20px;    
+
+    left: 0;
+    gap:8px;
+
+    z-index: 1000; 
+}
