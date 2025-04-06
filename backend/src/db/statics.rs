@@ -34,3 +34,24 @@ pub static SELECT_SESSION: &str = r#"
             ALLOW FILTERING;
 "#;
 
+pub static SELECT_SESSION_MESSAGES: &str = r#"
+    SELECT content, username FROM division_online.i_messages
+        WHERE session = ?
+            ALTER FILTERING;"
+"#;
+
+pub static INSERT_MESSAGE: &str = r#"
+    INSERT INTO division_online.i_messages(id, session, content, username)
+        VALUES(?, ?, ?, ?);
+"#;
+
+pub static SELECT_SESSION_NOTES: &str = r#"
+    SELECT title, description, content FROM division_online.i_session_notes
+        WHERE session = ?
+            ALLOW FILTERING;
+"#;
+
+pub static INSERT_NOTE: &str = r#"
+    INSERT INTO division_online.i_session_notes(session, content, username, description, title)
+        VALUES(?, ?, ?, ?, ?);
+"#;

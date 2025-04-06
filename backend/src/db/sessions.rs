@@ -1,6 +1,8 @@
 use crate::db::structures;
 use crate::db::statics;
 
+pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+
 pub async fn fetch_user_sessions(
     session: &scylla::client::session::Session,
     username: String
@@ -77,3 +79,44 @@ pub async fn fetch_user_session_data(
     Some(retvec)
 }
 
+pub async fn fetch_session_notes(
+    session: &scylla::client::session::Session,
+    ses: String
+) -> Option<Vec<structures::SessionNote>> {
+    let query_rows = session
+        .query_unpaged(statics::SELECT_SESSION_NOTES, ((ses),))
+        .await.ok()?
+        .into_rows_result().ok()?;
+    let mut retvec = Vec::new();
+    for row in query_rows.rows::<(Option<&str>,Option<&str>,Option<&str>)>().ok()?{
+        match row.ok()? {
+            ( Some(t),  Some(d), Some(c) ) => {
+                retvec.push(
+                    structures::SessionNote {
+                        title: Some(t.to_string()),
+                        description: Some(d.to_string()),
+                        content: Some(c.to_string())
+                    }
+                );
+            },
+            _ => {}
+        };
+    }
+    Some(retvec)
+}
+
+pub async fn new_session_note(
+    session: &scylla::client::session::Session,
+    ses: String,
+    username: String,
+    content: String,
+    description: String,
+    title: String
+) -> Result<()> {
+    return session
+        .query_unpaged(statics::INSERT_NOTE,
+            (ses.clone(), content.clone(), username.clone(), description.clone(), title.clone())
+        ).await
+        .map(|_|())
+        .map_err(From::from);
+}
