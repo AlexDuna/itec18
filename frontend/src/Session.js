@@ -212,23 +212,25 @@ const cardRefs = useRef([]);
         ]};
     };
 
-    const getSessions = () => {
+    const getMessages = () => {
         return {
-          recommended: [
+          messaje: [
             {
               id: "user1",
-              content: "Hi! This is a chat test!"
+              content: "Bro you literally suck at cs how the fuck you have 1000 hours played on linux and you play like shit"
             },
             {
                 id: "user2",
-                content: "Hi! Catyuz is typing"
+                content: "Broooo fuck out my chat tffff you oon"
             },
             {
-                id: "user2",
-                content: "Hi! Catyuz is typing again"
+                id: "user3",
+                content: "Certified shitbox <3333333333"
             },
         ]};
       };
+
+      const messages = getMessages().messaje;
     
     return (
 <>
@@ -245,9 +247,12 @@ const cardRefs = useRef([]);
             
         <div className={`chat-section ${isOpen ? 'open' : ''}`}>
             <div className="chat-content"> 
-            
+                    {messages.map((msg, index) => (
+                    <div key={index} className={`chat-message-received `}>
+                        <strong>{msg.id}:</strong> {msg.content}
+                    </div>
+                ))}
             </div>
-            <h2>Chat</h2>
             <div className="bar">
                 <div className="chatbar" placeholder='Chat here'>
                         <input className="chatin" placeholder='Chat...' />
