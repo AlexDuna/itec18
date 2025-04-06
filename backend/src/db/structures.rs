@@ -35,6 +35,13 @@ pub struct Session {
 }
 
 #[derive(scylla::SerializeRow, Clone,serde::Serialize, serde::Deserialize)]
+pub struct SessionNote {
+    pub title: Option<String>,
+    pub description: Option<String>,
+    pub content: Option<String>,
+}
+
+#[derive(scylla::SerializeRow, Clone,serde::Serialize, serde::Deserialize)]
 pub struct MessageHolder {
     pub content: Option<String>,
     pub username: Option<String>
