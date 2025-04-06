@@ -50,7 +50,7 @@ h1 {
     top: 0;
     right: 0px;
     width: 60px;
-    height: 100vh;
+    height: 100%;
     background-color: #ecf0f3;
     border-left: 1px solid #ddd;
     padding: 2rem 1rem;
@@ -91,7 +91,7 @@ h1 {
     position: fixed;
     top: 0;
     right: -100%; /* Secțiunea este ascunsă inițial */
-    width: 50%; /* Ocupă jumătate din lățimea ecranului */
+    width: min(calc(100% - 60px), 600px); /* Ocupă jumătate din lățimea ecranului */
     height: 100%;
     margin-right: 0px;
     background-color: rgba(3, 3, 3, 0.05);
@@ -139,7 +139,7 @@ z-index:0;
 }*/
 
 .right-sidebar.shifted {
-    right: 50%; /* Se mută cu 50% spre stânga când chatul se deschide */
+    right: min(calc(100% - 60px), 600px); /* Se mută cu 50% spre stânga când chatul se deschide */
 
     z-index:9999;
   }
@@ -322,13 +322,19 @@ z-index:0;
   height: 100px;
   margin-right: 0px;
   background-color: rgba(3, 3, 3, 0.05);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
+  left: calc(50% - 200px);
+  top: calc(50% - 100px); 
   overflow-y: auto;
   padding: 20px;
+  padding-left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   z-index: 999;
+}
+.pop.hide {
+	left:300%;
 }
 
 
